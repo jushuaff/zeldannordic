@@ -1,0 +1,25 @@
+/*
+Module Name: Employee
+Author: Jushua FF
+*/
+
+@media (max-width: 767px) {
+	#overtime-list tr td:last-child {
+		display: block;
+		text-align: center;
+	}
+
+	.pr-20 { padding-right:20px; }
+
+	.remove-time { margin-right: 0; }
+}
+
+@media (max-width: 500px) {
+	.table-search-row { padding: 10px !important; }
+	.search-bar {
+		margin-top: 10px;
+		width:100% !important;
+	}
+}
+
+

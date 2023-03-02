@@ -1,0 +1,48 @@
+/*
+Module Name: Admin
+Author: Jushua FF
+*/
+
+@media (max-width: 767px) {
+	.modal { padding: 0 !important; }
+
+	#employee-list tr td:last-child { flex-wrap:wrap; }
+}
+
+@media (max-width: 500px) {
+	#employee-list-search,
+	#aotr-list-search,
+	#dtr-list-search,
+	#salary-grade-list-search { 
+		width:100%; 
+		margin-top: 10px;
+	}
+
+	#dtr-list-search {
+		margin: 0;
+	}
+
+	.w500-100 { width:100%; }
+}
+
+@media (max-width: 550px) {
+	.w550-hide { display:none; }
+
+	#employee-list tr td:last-child button,
+	#aotr-list tr td:last-child button { 
+		width:100%; 
+	}
+}
+
+@media (max-width: 405px) {
+	.w405-hide { display:none; }
+	#main-div { overflow-x: scroll; }
+	#employee-list tr td:last-child button { width: 150px; }
+
+	#employee-list tbody tr { 
+		display: flex;
+		align-items: flex-start;
+	}
+
+	#employee-list tbody tr td { width: 50%; }
+}

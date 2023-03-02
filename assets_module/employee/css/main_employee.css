@@ -1,0 +1,111 @@
+/*
+Module Name: Employee
+Author: Jushua FF
+*/
+
+/*-------------------------------------------------------
+Sidebar
+-------------------------------------------------------*/
+	#sidebar .request-overtime {
+		display: block;
+	    background-image: url(../img/ot-request-default.png);
+	    background-size: 18px;
+	    background-repeat: no-repeat;
+	    height: 24px;
+	}
+
+	#sidebar #request-ot:hover .request-overtime,
+	#sidebar #request-ot:active .request-overtime {
+		background-image: url(../img/ot-request-toggled.png);
+	}
+
+	#dtr-collapse .ongoing-dtr-message {
+		display: none;
+		color: orange;
+		font-size: 12px;
+	}
+
+	.collapsible button.disabled, 
+	.collapsible button.disabled:hover {
+		color: lightgray; !important;
+	}
+
+	#my-dtr-list tr.active { 
+		/*background-color: #DAFFD5;*/
+		background-color: orange;
+		color: white; 
+	}
+
+	#dtr-today { flex-wrap: wrap; }
+
+/*-------------------------------------------------------
+Modal
+-------------------------------------------------------*/
+	#request-ot-cru-modal .request-ot-cru-icon {
+		display: block;
+	    background-image: url(../img/ot-request-white.png);
+	    background-size: 21px;
+	    background-repeat: no-repeat;
+	    height: 29px;
+	    width: 27px !important;
+	}
+
+	.time-in-out-col,
+	.time-in-out-col .row { 
+		position:relative; 
+	}
+
+	#add-time,
+	.remove-time {
+		cursor: pointer;
+	    position: absolute;
+	    right: 0;
+	    color: gray;
+	    display: none;
+    	opacity: 0.5;
+	}
+
+	#add-time {
+		bottom: 0;
+		margin-right: 5px;
+    	margin-bottom: 3.5px;
+    	z-index: 2;
+	}
+
+	.remove-time {
+	    width: 0;
+	    padding: 10px;
+	    margin-right: -9px;
+	}
+
+	.time-in-out-col .row:last-child:hover > .remove-time,
+	.time-in-out-col .row:last-child:active > .remove-time,
+	.time-in-out-col .row:last-child:focus > .remove-time,
+	.time-in-out-col .row:has(input:hover) > .remove-time,
+	.time-in-out-col .row:has(input:active) > .remove-time,
+	.time-in-out-col .row:has(input:focus) > .remove-time {
+		display: block !important;
+	}
+
+	.time-in-out-col:has(.last-row input:hover) #add-time,
+	.time-in-out-col:has(.last-row input:active) #add-time,
+	.time-in-out-col:has(.last-row input:focus) #add-time, 
+	#add-time:hover { 
+		display: block !important; 
+	}
+
+	#add-time:hover,
+	.remove-time: hover { 
+		opacity: 1 !important; 
+	}
+
+/*-------------------------------------------------------
+Table
+-------------------------------------------------------*/
+	#overtime-list_filter { 
+		display: none;
+	}
+
+	#overtime-list button {
+		width: 90px;
+	}

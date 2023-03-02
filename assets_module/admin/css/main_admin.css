@@ -1,0 +1,105 @@
+/*
+/*
+Module Name: Admin
+Author: Jushua FF
+*/
+/*-------------------------------------------------------------------
+Sidebar
+-------------------------------------------------------------------*/
+	/*#sidebar .otr-link { position: relative; }
+
+	#sidebar .otr-link .notif { 
+		position: absolute;
+		color: #65fe08;
+		font-size: 12px;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		margin-right: -15px;
+	}
+*/
+/*-------------------------------------------------------------------
+Employee List
+-------------------------------------------------------------------*/
+	#body-row {
+		padding: 15px;
+	}
+
+	#employee-list span.username {
+		color: gray;
+		font-size: 12px;
+		display: block;
+		line-height: 16px;
+	}
+
+	#employee-list .emp-profile {
+		position: relative;
+		border-radius: 50%;
+		overflow: hidden;
+		width: 30px;
+		height: 30px;
+		margin-right: 10px;
+	}
+
+	#employee-list .emp-profile img {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 100%;
+	}
+
+	#employee-list tbody tr:hover span { color: white; }
+
+	#employee-list tbody td { vertical-align: middle; }
+
+	#employee-list .password { 
+		color: #FF8C00;
+		border: 1px solid #FF8C00;
+	}
+		#employee-list .password:active,
+		#employee-list .password:hover { 
+			background-color: #FF8C00 !important;
+			color: white;
+		}
+
+	#employee-list .archive { 
+		color: #8B0000;
+		border: 1px solid #8B0000;
+	}
+		#employee-list .archive:active,
+		#employee-list .archive:hover { 
+			background-color: #8B0000 !important;
+			color: white;
+		}
+
+	#employee-list_filter,
+	#salary-grade-list_filter,
+	#aotr-list_filter,
+	#adtr-list_filter,
+	#odtr-table-list-view_filter,
+	#odtr-group-list-view_filter,
+	#dtr-list_filter { 
+		display: none;
+	}
+
+	#view-dtr-details-modal .status {
+		display: block;
+		font-size: 12px;
+		line-height: 0;
+	}
+
+/*-------------------------------------------------------------------
+ODTR
+-------------------------------------------------------------------*/
+	#odtr-view-by,
+	.download-outstanding-dtr,
+	.download-dtr-list {
+		padding: 0.5rem;
+		margin-right: 5px;
+		width: 45px;
+	}
+
+	.desktop-show { display: none; }
