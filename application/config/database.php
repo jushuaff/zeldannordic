@@ -96,10 +96,10 @@ Infinity Free:
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'sql308.epizy.com',
-	'username' => 'epiz_33690244',
-	'password' => '2Eyfohq3ddH63',
-	'database' => 'epiz_33690244_zeldannlrc',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'nlrc',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

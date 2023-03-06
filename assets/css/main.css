@@ -13,3 +13,17 @@ HEADER
 /*--------------------------------------------------------------
 FOOTER
 --------------------------------------------------------------*/
+
+.fa-calendar-edit::before {
+	display: inline-block;
+    width: 15px;
+    height: 17px;
+    content: "";
+    background: url("../img/calendar-edit-gray.png") no-repeat;
+    background-size: 100%;
+}
+
+.collapsible button:hover a .fa-calendar-edit::before {
+  	background: url("../img/calendar-edit-blue.png") no-repeat;
+  	background-size: 100%;
+}

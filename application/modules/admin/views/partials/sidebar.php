@@ -21,7 +21,7 @@
 	<!--  -->
 	<button class="drop-button" target="#employee-collapse">
 		<div class="w-100">
-			<i class="fas fa-users left"></i>Employee Accounts
+			<i class="fas fa-users left"></i>Accounts
 		</div>
 		<i class="fas fa-angle-down right"></i>
 	</button>
@@ -33,7 +33,7 @@
 
 	<button class="drop-button" target="#dtr-collapse">
 		<div class="w-100">
-			<i class="fa-solid fa-clock left"></i>Employee DTR
+			<i class="fas fa-calendar-check left"></i>Daily Time Record
 		</div>
 		<i class="fas fa-angle-down right"></i>
 	</button>
@@ -50,7 +50,7 @@
 	<button class="drop-button">
 		<div class="w-100">
 			<a class="otr-link" href="<?= base_url("admin/overtime_requests") ?>">
-				<i class="fa-solid fa-calendar left"></i>Overtime Request
+				<i class="fas fa-clock left"></i>Overtime Request
 			</a>
 		</div>
 	</button>
@@ -65,4 +65,30 @@
 		<button><a href="<?= base_url("admin/salary_grade") ?>"><i class="fas fa-coins"></i>Salary Grade List</a></button>
 		<button id="add-salary-grade" data-toggle="modal" data-target="#salary-grade-cru-modal"><i class="fas fa-plus"></i>Add Grade</button>
 	</div>
+
+	<button class="drop-button" target="#holidays">
+		<div class="w-100">
+			<i class="fa-solid fa-calendar left"></i>Holidays
+		</div>
+		<i class="fas fa-angle-down right"></i>
+	</button>
+	<div class="collapsible" id="holidays">
+		<button><a href="<?= base_url("admin/holidays") ?>"><i class="fas fa-calendar-day"></i>Holiday List</a></button>
+		<button><a class="d-flex" href="<?= base_url("admin/custom_holidays") ?>"><i class="fas fa-calendar-edit d-flex align-items-center"></i>Custom Holidays</a></button>
+		<button id="add-salary-grade" data-toggle="modal" data-target="#holiday-cru-modal"><i class="fas fa-plus"></i>Add Custom</button>
+	</div>
+
+	<button class="drop-button" target="#dev-setting">
+		<div class="w-100">
+			<i class="fa-brands fa-dev left"></i>Developer Options
+		</div>
+		<i class="fas fa-angle-down right"></i>
+	</button>
+	<div class="collapsible" id="dev-setting">
+		<button><i class="fas fa-trash"></i>Delete Temp</button>
+		<button><i class="fa fa-refresh"></i>Holidays</button>
+	</div>
 </div>
+
+<?= $this->load->view('modal/salary-grade-cru-modal'); ?>
+<?= $this->load->view('modal/holiday-cru-modal'); ?>

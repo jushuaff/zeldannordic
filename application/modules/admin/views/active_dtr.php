@@ -50,6 +50,4 @@ $user_type_name = $this->users_type_model->get_one_by_where(['id'=>$user_type]);
 		</div>
 	</div>
 </div>
-
-<?= $this->load->view('modal/salary-grade-cru-modal'); ?>
 <?= $this->load->view('modal/ot-status-modal'); ?>

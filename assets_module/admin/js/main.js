@@ -10,6 +10,7 @@ $(function () {
         app.ot_request();
         app.dtr();
         app.download_dtr();
+        app.holiday();
       }
 
       app.bindings = function() {
@@ -23,7 +24,9 @@ $(function () {
           #adtr-list, \
           #odtr-table-list-view,\
           #odtr-group-list-view,\
-          #dtr-list\
+          #dtr-list,\
+          #holiday-list,\
+          #custom-holiday-list\
         ").DataTable({
             bLengthChange: false, 
             searching: true,
@@ -37,7 +40,9 @@ $(function () {
           #aotr-list-search, \
           #adtr-list-search,\
           #odtr-list-search,\
-          #dtr-list-search\
+          #dtr-list-search,\
+          #holiday-list-search,\
+          #custom-holiday-list-search\
         ").keyup(function(){
           table.search($(this).val()).draw();
         });
@@ -501,6 +506,119 @@ $(function () {
               form.find('button').removeAttr('disabled');
             }
           });
+        });
+      }
+
+      app.holiday = function(){
+        var modal = $("#holiday-cru-modal");
+        var form = $("#holiday-cru-form");
+
+        modal.on('hidden.bs.modal',function(){
+          modal.find(".modal-title").html("<i class='fas fa-plus'></i> Custom Holiday");
+          form.removeAttr("h-id");
+          form.find("select").prop('selectedIndex',0);
+          form.find("input").val("");
+        });
+
+        $(document).on("click",".update-holiday",function(){
+          var h_id = $(this).attr("h-id");
+          modal.find(".modal-title").html("<i class='fas fa-edit'></i> Custom Holiday");
+          form.attr("h-id",h_id);
+          $.ajax({
+            url: base_url + "admin/Ajax_holiday/fetch_holiday",
+            type: "POST",
+            data: {h_id:h_id},
+            dataType: "JSON",
+            success:function(response){
+              form.find("[name='name']").val(response.name);
+              form.find("[name='date']").val(response.date);
+              form.find("[name='type'] option[value='"+response.type+"']").prop('selected', true);
+            }
+          });
+        });
+
+        form.on("submit", function(e){
+          e.preventDefault();
+          if(form.attr("h-id")){
+            var h_id = form.attr("h-id");
+            var table = $("#custom-holiday-list");
+            $.ajax({
+              url: base_url + "admin/Ajax_holiday/update_custom_holiday",
+              type: "POST",
+              data: form.serialize()+"&h_id="+h_id,
+              dataType: "JSON",
+              beforeSend: function(){
+                $(".error").removeClass("error");
+                $(".error-message, .alert").remove();
+                form.find('input, select').attr('readonly',true);
+                form.find('button').attr('disabled',true);
+              },
+              success: function(response){
+                if(response.status == "form-incomplete"){
+                  $.each(response.errors,function(e,val){
+                    form.find('[name="'+e+'"]').addClass('error');
+                    form.find('[name="'+e+'"]').parent().append('<i class="error-message">'+val+'</i>');                               
+                  });
+                }else if(response.status == "error"){
+                  form.prepend('<div class="alert alert-danger text-center" role="alert">'+response.message+'</div>');
+                }else {
+                  form.prepend('<div class="alert alert-success text-center" role="alert">'+response.message+'</div>');
+                  setTimeout(function(){
+                    form.find("select").prop('selectedIndex',0);
+                    form.find("input").val("");
+                    form.find(".error").removeClass("error");
+                    form.find(".error-message, .alert").remove();
+                    table.find("[tr-id='"+h_id+"'] .name").text(response.name);
+                    table.find("[tr-id='"+h_id+"'] .date").text(response.date);
+                    table.find("[tr-id='"+h_id+"'] .type").text(response.type);
+                    modal.modal("hide");
+                    
+                  }, 1500);
+                }
+              },
+              complete: function(response){
+                form.find('input, select').removeAttr('readonly');
+                form.find('button').removeAttr('disabled');
+              }
+            });
+          }else{
+            $.ajax({
+              url: base_url + "admin/Ajax_holiday/add_custom_holiday",
+              type: "POST",
+              data: form.serialize(),
+              dataType: "JSON",
+              beforeSend: function(){
+                $(".error").removeClass("error");
+                $(".error-message, .alert").remove();
+                form.find('input, select').attr('readonly',true);
+                form.find('button').attr('disabled',true);
+              },
+              success: function(response){
+                if(response.status == "form-incomplete"){
+                  $.each(response.errors,function(e,val){
+                    form.find('[name="'+e+'"]').addClass('error');
+                    form.find('[name="'+e+'"]').parent().append('<i class="error-message">'+val+'</i>');                               
+                  });
+                }else if(response.status == "error"){
+                  form.prepend('<div class="alert alert-danger text-center" role="alert">'+response.message+'</div>');
+                }else {
+                  form.prepend('<div class="alert alert-success text-center" role="alert">'+response.message+'</div>');
+                  setTimeout(function(){
+                    form.find("select").prop('selectedIndex',0);
+                    form.find("input").val("");
+                    form.find(".error").removeClass("error");
+                    form.find(".error-message, .alert").remove();
+                    modal.modal("hide");
+                    /*add yung append newly added sa table*/
+                  }, 1500);
+                }
+              },
+              complete: function(response){
+                form.find('input, select').removeAttr('readonly');
+                form.find('button').removeAttr('disabled');
+              }
+            });
+          }
         });
       }
 

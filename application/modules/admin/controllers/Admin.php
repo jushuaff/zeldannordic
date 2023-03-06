@@ -11,7 +11,8 @@ class Admin extends CI_Controller {
             'users_type_model',
             'salary_grade_model',
             'request_ot_model',
-            'dtr_model'
+            'dtr_model',
+            'holidays_model'
         ]);
 
         if($this->session->has_userdata('is_logged_in')){
@@ -149,7 +150,7 @@ class Admin extends CI_Controller {
         $user_info = $this->users_model->get_one_by_where(['id'=>$account_session['id']]);
 
         $this->template
-            ->title('outstanding DTR')
+            ->title('DTR List')
             ->set_layout('user_main')
             ->prepend_metadata('<link href="' . versionAsset('assets_module/universal/css/main.css') . '" rel="stylesheet" type="text/css">')
             ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/main_admin.css') . '" rel="stylesheet" type="text/css">')
@@ -162,6 +163,46 @@ class Admin extends CI_Controller {
             ->append_metadata('<script src="' . versionAsset('assets_module/admin/js/main.js') . '"></script>')
             ->append_metadata('<script src="' . versionAsset('plugins/datatables/datatables.min.js') . '"></script>')
             ->build('dtr_list', $user_info);
+    }
+
+    public function holidays() {
+        $account_session = $this->session->userdata('account_session');
+        $user_info = $this->users_model->get_one_by_where(['id'=>$account_session['id']]);
+
+        $this->template
+            ->title('Holidays')
+            ->set_layout('user_main')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/universal/css/main.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/main_admin.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/desktop_admin.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/tablet_admin.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/mobile_admin.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/universal/css/modal.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('plugins/datatables/datatables.min.css') . '" rel="stylesheet" type="text/css">')
+            ->append_metadata('<script src="' . versionAsset('assets_module/universal/js/main.js') . '"></script>')
+            ->append_metadata('<script src="' . versionAsset('assets_module/admin/js/main.js') . '"></script>')
+            ->append_metadata('<script src="' . versionAsset('plugins/datatables/datatables.min.js') . '"></script>')
+            ->build('holidays', $user_info);
+    }
+
+    public function custom_holidays() {
+        $account_session = $this->session->userdata('account_session');
+        $user_info = $this->users_model->get_one_by_where(['id'=>$account_session['id']]);
+
+        $this->template
+            ->title('Custom Holidays')
+            ->set_layout('user_main')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/universal/css/main.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/main_admin.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/desktop_admin.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/tablet_admin.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/admin/css/mobile_admin.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('assets_module/universal/css/modal.css') . '" rel="stylesheet" type="text/css">')
+            ->prepend_metadata('<link href="' . versionAsset('plugins/datatables/datatables.min.css') . '" rel="stylesheet" type="text/css">')
+            ->append_metadata('<script src="' . versionAsset('assets_module/universal/js/main.js') . '"></script>')
+            ->append_metadata('<script src="' . versionAsset('assets_module/admin/js/main.js') . '"></script>')
+            ->append_metadata('<script src="' . versionAsset('plugins/datatables/datatables.min.js') . '"></script>')
+            ->build('custom_holidays', $user_info);
     }
 
 

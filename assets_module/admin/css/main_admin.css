@@ -4,21 +4,6 @@ Module Name: Admin
 Author: Jushua FF
 */
 /*-------------------------------------------------------------------
-Sidebar
--------------------------------------------------------------------*/
-	/*#sidebar .otr-link { position: relative; }
-
-	#sidebar .otr-link .notif { 
-		position: absolute;
-		color: #65fe08;
-		font-size: 12px;
-		top: 0;
-		bottom: 0;
-		right: 0;
-		margin-right: -15px;
-	}
-*/
-/*-------------------------------------------------------------------
 Employee List
 -------------------------------------------------------------------*/
 	#body-row {
@@ -81,7 +66,9 @@ Employee List
 	#adtr-list_filter,
 	#odtr-table-list-view_filter,
 	#odtr-group-list-view_filter,
-	#dtr-list_filter { 
+	#dtr-list_filter,
+	#holiday-list_filter,
+	#custom-holiday-list_filter { 
 		display: none;
 	}
 
@@ -103,3 +90,11 @@ ODTR
 	}
 
 	.desktop-show { display: none; }
+
+/*-------------------------------------------------------------------
+Holiday
+-------------------------------------------------------------------*/
+	#holiday-list tr td,
+	#custom-holiday-list tr td { 
+		vertical-align: middle; 
+	}
