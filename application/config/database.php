@@ -73,27 +73,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-/*
-Localhost:
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'nlrc',
-
-Live:
-	'hostname' => 'sql12.freemysqlhosting.net',
-	'username' => 'sql12600664',
-	'password' => 'gE9ZHefaNC',
-	'database' => 'sql12600664',
-
-Infinity Free:
-	'hostname' => 'sql308.epizy.com',
-	'username' => 'epiz_33690244',
-	'password' => '2Eyfohq3ddH63',
-	'database' => 'epiz_33690244_zeldannlrc',
-
-*/
-
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',

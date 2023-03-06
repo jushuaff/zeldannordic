@@ -32,7 +32,15 @@ $user_type_name = $this->users_type_model->get_one_by_where(['id'=>$user_type]);
 			                        <tr tr-id="'.$h_list['id'].'">
 			                            <td class="name">'.$h_list['name'].'</td>
 			                            <td class="date">'.date( "M d, Y (D)",strtotime( $h_list['date'])).'</td>
-			                            <td class="type">'.($h_list['type'] == "regular" ? "Regular Holiday" : "Special Non-working Holiday").'</td>
+			                            <td class="type">';
+			                            	if($h_list['type'] == "regular"):
+                                                echo "Regular Holiday";
+                                            elseif($h_list['type'] == "special"):
+                                                echo "Special Non-working Holiday";
+                                            else:
+                                                echo "Special Working Holiday";
+                                            endif;
+			                            echo '</td>
 			                        </tr>
 			                    ';
 				            endforeach;

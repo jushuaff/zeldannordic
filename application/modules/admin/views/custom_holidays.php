@@ -33,10 +33,18 @@ $user_type_name = $this->users_type_model->get_one_by_where(['id'=>$user_type]);
 			                        <tr tr-id="'.$h_list['id'].'">
 			                            <td class="name">'.$h_list['name'].'</td>
 			                            <td class="date">'.date( "M d, Y (D)",strtotime( $h_list['date'])).'</td>
-			                            <td class="type">'.($h_list['type'] == "regular" ? "Regular Holiday" : "Special Non-working Holiday").'</td>
+			                            <td class="type">';
+			                            	if($h_list['type'] == "regular"):
+                                                echo "Regular Holiday";
+                                            elseif($h_list['type'] == "special"):
+                                                echo "Special Non-working Holiday";
+                                            else:
+                                                echo "Special Working Holiday";
+                                            endif;
+			                            echo '</td>
 			                            <td class="text-center">
 			                            	<button class="btn edit update-holiday" title="Update Holiday" h-id="'.$h_list['id'].'" data-toggle="modal" data-target="#holiday-cru-modal"><i class="fas fa-edit"></i> Update</button>
-			                            	<button class="btn delete delete-holiday" title="Delete Holiday" h-id="'.$h_list['id'].'"><i class="fas fa-trash"></i> Delete</button>
+			                            	<button class="btn delete delete-holiday" title="Delete Holiday" h-id="'.$h_list['id'].'" data-toggle="modal" data-target="#delete-holiday-modal"><i class="fas fa-trash"></i> Delete</button>
 			                            </td>
 			                        </tr>
 			                    ';
@@ -48,3 +56,4 @@ $user_type_name = $this->users_type_model->get_one_by_where(['id'=>$user_type]);
 		</div>
 	</div>
 </div>
+<?= $this->load->view("modal/delete-holiday-modal") ?>

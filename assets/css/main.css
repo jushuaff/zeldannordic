@@ -3,16 +3,8 @@ Theme Name: Universal
 Author: Jushua FF
 */
 
-/*--------------------------------------------------------------
-HEADER
---------------------------------------------------------------*/
-	.header-main-row { padding: 15px; }
-	.header-main-row img { width: 75px; }
-
-
-/*--------------------------------------------------------------
-FOOTER
---------------------------------------------------------------*/
+.header-main-row { padding: 15px; }
+.header-main-row img { width: 75px; }
 
 .fa-calendar-edit::before {
 	display: inline-block;

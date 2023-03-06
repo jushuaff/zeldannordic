@@ -7,7 +7,7 @@ class Ajax_holiday extends CI_Controller {
         parent::__construct();
 
         $this->load->model(['holidays_model']);
-        if(!$this->input->is_ajax_request()){ show_404(); }
+        //if(!$this->input->is_ajax_request()){ show_404(); }
     }
 
     public function fetch_holiday(){
@@ -137,5 +137,30 @@ class Ajax_holiday extends CI_Controller {
             return false; 
         }
         return true;
+    }
+
+    public function delete_custom_holiday(){
+        try {
+            
+            $this->holidays_model->delete($_POST['h_id']);
+
+            if($this->db->trans_status()){
+                $this->db->trans_commit();
+                $response = [
+                    "status"       => 'success',
+                    "message"      => 'Deletion Successful'
+                ];
+            }else{
+                $this->db->trans_rollback();
+                $response['status'] = 'error';
+                $response['message'] = $this->db->error();
+            }
+        }catch (Exception $e) {
+            $this->db->trans_rollback();
+            $response['status'] = 'error';
+            $response['message'] = $e->getMessage();
+        }
+        echo json_encode($response); 
+
     }
 }

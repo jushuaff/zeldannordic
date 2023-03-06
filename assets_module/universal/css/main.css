@@ -219,6 +219,8 @@ Table
 		color: white !important;
 	}
 
+	table tbody tr:hover > td { color:white !important; }
+
 	table button {
 		box-shadow: none !important;
 		background-color: white !important;

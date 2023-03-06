@@ -30,6 +30,7 @@
                 <option value="">--Select Type--</option>
                 <option value="regular">Regular Holiday</option>
                 <option value="special">Special Non-working Holiday</option>
+                <option value="special-working">Special Working Holiday</option>
               </select>
             </div>
           </div>

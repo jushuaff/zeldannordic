@@ -620,6 +620,51 @@ $(function () {
             });
           }
         });
+
+        $(document).on("click",".delete-holiday",function(){
+          var h_id = $(this).attr("h-id");
+          var modal = $("#delete-holiday-modal");
+          modal.find("form").attr("h-id",h_id);
+          $.ajax({
+            url: base_url + "admin/Ajax_holiday/fetch_holiday",
+            type: "POST",
+            data: {h_id:h_id},
+            dataType: "JSON",
+            success:function(response){
+              modal.find(".question-row b").text(response.name);
+            }
+          });
+        });
+
+        $(document).on("submit","#delete-holiday-form",function(e){
+          e.preventDefault();
+          var h_id = $(this).attr("h-id");
+          $.ajax({
+            url: base_url + "admin/Ajax_holiday/delete_custom_holiday",
+            type: "POST",
+            data: {h_id:h_id},
+            dataType: "JSON",
+            beforeSend: function(){
+              form.find(".alert").remove();
+              form.find('button').attr('disabled',true);
+            },
+            success: function(response){
+              if(response.status == "error"){
+                $("#delete-holiday-modal .modal-body").prepend('<div class="alert alert-danger text-center" role="alert">'+response.message+'</div>');
+              }else {
+                $("#delete-holiday-modal .modal-body").prepend('<div class="alert alert-success text-center" role="alert">'+response.message+'</div>');
+                setTimeout(function(){
+                  form.find(".alert").remove();
+                  $("#delete-holiday-modal").modal("hide");
+                  $("#custom-holiday-list").find("tbody tr[tr-id='"+h_id+"']").remove();
+                }, 1500);
+              }
+            },
+            complete: function(response){
+              form.find('button').removeAttr('disabled');
+            }
+          });
+        });
       }
 
       app.init();

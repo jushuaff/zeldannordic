@@ -6,7 +6,7 @@ class Ajax_dtr extends CI_Controller {
     public function __construct(){
         parent::__construct();
 
-        $this->load->model(['users_model','dtr_model','request_ot_model', 'salary_grade_model']);
+        $this->load->model(['users_model','dtr_model','request_ot_model','salary_grade_model','holidays_model']);
         $this->load->library('tcpdf/tcpdf');
     }
 
@@ -122,7 +122,7 @@ class Ajax_dtr extends CI_Controller {
             $pdf->SetHeaderData(base_url("assets/img/nlrc-logo-2.png"), '100px', PDF_HEADER_TITLE, PDF_HEADER_STRING);  
             $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));  
             $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
-            $pdf->SetDefaultMonospacedFont('helvetica');  
+            $pdf->SetDefaultMonospacedFont('helvetica'); 
             $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);  
             $pdf->SetMargins(PDF_MARGIN_LEFT, '5', PDF_MARGIN_RIGHT);  
             $pdf->setPrintHeader(false);  
@@ -134,11 +134,12 @@ class Ajax_dtr extends CI_Controller {
             $content .= '
                 <style>
                     .logo { width: 120px; }
+                    .text-left { text-align: left; }
                     .text-right { text-align: right; }
                     .text-center { text-align: center; }
                     .bg-blue { background-color: #0c72ba; color: white; }
                     .bg-gray { background-color: gray; color: white; }
-                    .t-8 {font-size: 8px; }
+                    .t-8 {font-size: 8px !important; }
                     .t-approved { color: #039487; }
                     .t-pending { color: green; }
                     .t-denied { color: red; }
@@ -169,17 +170,17 @@ class Ajax_dtr extends CI_Controller {
                         $content .= '
                             <tr class="bg-blue">
                                 <td width="40%"><b>'.$user['name'].'</b></td>
-                                <td width="35%"><b>schedule: '.$user['schedule'].'</b></td>
-                                <td width="25%" class="text-right"><b>salary grade: ';
+                                <td width="35%"><b>Schedule: '.$user['schedule'].'</b></td>
+                                <td width="25%" class="text-right"><b>Hourly Rate: ';
                                     $sg = $this->salary_grade_model->get_one_by_where(['grade_number' => $user['salary_grade']]);
                                     $content .= $sg['hourly_rate'].'/hr</b></td>
                             </tr>
                             <tr>
                                 <td width="20%"><strong>Date</strong></td>
-                                <td width="25%" class="text-center"><strong>Time</strong></td>
-                                <td width="25%" class="text-center"><strong>Overtime Request</strong></td>
-                                <td width="15%"><strong>Overtime Status</strong></td>
-                                <td width="15%" class="text-right"><strong>Hours Worked</strong></td>
+                                <td width="20%" class="text-center"><strong>Time</strong></td>
+                                <td width="25%" class="text-center"><strong>Day Type</strong></td>
+                                <td width="20%" class="text-center"><strong>OT Request</strong></td>
+                                <td width="15%" class="text-right"><strong>Hours</strong></td>
                             </tr>
                         ';
                         $total_hours_per_row = 0;
@@ -188,7 +189,7 @@ class Ajax_dtr extends CI_Controller {
                             if($date >= $start && $date <= $end && $dtr_list['user_id'] == $user['id']):
                                 $content .= '<tr>
                                     <td width="20%">'.date( "M d, Y (D)",strtotime( $dtr_list['date'])).'</td>
-                                    <td width="25%" class="text-center">';
+                                    <td width="20%" class="text-center">';
                                         $get_log = $this->dtr_model->get_all_by_where(['user_id' => $dtr_list['user_id'], 'date' => $dtr_list['date']]);
                                         foreach($get_log as $gl):
                                             $hour_diff = strtotime($gl['time_out'])-strtotime($gl['time_in']);
@@ -197,25 +198,28 @@ class Ajax_dtr extends CI_Controller {
                                             $total = $hms[0] + ($hms[1]/60) + ($hms[2]/3600) - 1;
                                             $total_hours += $total;
                                             $total_hours_per_row += $total;
-
                                             $content .= date( "h:i a",strtotime($gl['time_in']))." - ".date( "h:i a",strtotime($gl['time_out']))."<br>";
                                         endforeach;
                                     $content .='</td>
                                     <td width="25%" class="text-center">';
-                                        $otr = $this->request_ot_model->get_ot($dtr_list['user_id'],$dtr_list['date']);
-                                        if($otr):
-                                            $times = explode(" ",$otr['time']);
-                                            for($a=0;$a<count($times);$a++):
-                                                if($times[$a]):
-                                                    $in_out = explode("-",$times[$a]);
-                                                    $content .= date("h:i a",strtotime($in_out[0])).' - '.date("h:i a",strtotime($in_out[1])).'<br>';
+                                        $h_list = $this->holidays_model->get_all();
+                                        $date_compare = date( "Y-m-d",strtotime( $dtr_list['date']));
+                                        $count_compare = 0;
+                                        foreach($h_list as $h_list):
+                                            if($h_list['date'] == $date_compare):
+                                                $count_compare++;
+                                                if($h_list['type'] == "regular"):
+                                                    $content .= "Regular Holiday";
+                                                elseif($h_list['type'] == "special"):
+                                                    $content .= "Special Non-working Holiday";
+                                                else:
+                                                    $content .= "Special Working Holiday";
                                                 endif;
-                                            endfor;
-                                        else:
-                                            $content .= 'X';
-                                        endif;
+                                            endif;
+                                        endforeach;
                                     $content .='</td>
-                                    <td width="15%">';
+                                    <td width="20%" class="text-center">';
+                                        $otr = $this->request_ot_model->get_ot($dtr_list['user_id'],$dtr_list['date']);
                                         if($otr):
                                             if($otr['status'] == "pending"):
                                                 $content .='<i class="t-pending">'.$otr['status'].'</i>'; 
@@ -224,8 +228,6 @@ class Ajax_dtr extends CI_Controller {
                                             else:
                                                 $content .='<i class="t-denied">'.$otr['status'].'</i>';
                                             endif;
-                                        else:
-                                            $content .= '---';
                                         endif;
                                     $content .='</td>
                                     <td width="15%" class="text-right">'.$total_hours_per_row.' hrs</td>
@@ -239,22 +241,28 @@ class Ajax_dtr extends CI_Controller {
                             <td width="40%" class="bg-gray text-right">Total hours:</td>
                             <td width="15%" class="text-right bg-blue">'.$total_hours.' hrs</td>
                         </tr>
-                        <tr>
-                            <td width="85%" class="bg-gray text-right">Total Payable excluding overtime</td>
-                            <td width="15%" class="text-right bg-blue">PHP '.$sg['hourly_rate']*$total_hours.'</td>
-                        </tr>
-                        <tr><td></td></tr>';
+                        <tr><td width="100%"></td></tr>';
                     endif;
                     $total_days = 0;
                     $total_hours = 0;
-                    //$content .= "<tr><td></td></tr>";
                 endif;
             endforeach;
 
-            $content .= '</tbody></table>';  
+            $content .= "
+                <tr><td><b>Non-regular Payable Computation:</b></td></tr>
+                <tr><td><b>Special Non-working Holiday:</b> No work no pay | Hours worked * Hourly Rate * 130%</td></tr>
+                <tr><td><b>Special Non-working Holiday + Rest day:</b> Hours worked * Hourly Rate * 150%</td></tr>
+                <tr><td><b>Special Working Holiday:</b> Hours worked * Hourly Rate</td></tr>
+                <tr><td><b>Regular Holiday (With work):</b> Hours worked * Hourly Rate * 200%</td></tr>
+                <tr><td><b>Regular Holiday (Without work):</b> Hourly rate * 8 hours</td></tr>
+                <tr><td><b>Rest Day: </b> Hours worked * Hourly rate * 130%</td></tr>
+                <tr><td><b>Night Differential (7PM onwards):</b> Hours worked * Hourly rate * 110%</td></tr>
+                <tr><td><b>Overtime:</b> (Hours worked * Computed hourly rate) * 130%</td></tr>
+                </tbody></table>
+            ";  
             $pdf->writeHTML($content);
             ob_end_clean();
-            $pdf->Output('Employee Dtr List.pdf', 'D');
+            $pdf->Output('Employee Dtr List.pdf', 'I');
 
             $this->session->unset_userdata('start-date');
             $this->session->unset_userdata('end-date');
