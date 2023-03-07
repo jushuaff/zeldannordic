@@ -53,16 +53,15 @@
     <!-- <script src="<?php //echo base_url('plugins/jquery-3.6.0/js/jquery-3.6.0.min.js') ?>"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- TETHER -->
-    <script src="<?php echo base_url('plugins/tether.min.js') ?>">
-    </script>
+    <!-- <script src="<?php //echo base_url('plugins/tether.min.js') ?>"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js" integrity="sha512-X7kCKQJMwapt5FCOl2+ilyuHJp+6ISxFTVrx+nkrhgplZozodT9taV2GuGHxBgKKpOJZ4je77OuPooJg9FJLvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- BOOTSRAP JS -->
     <!-- <script src="<?php //echo base_url('plugins/bootstrap-5.0.2/js/popper.min.js')?>"></script>
     <script src="<?php //echo base_url('plugins/bootstrap-5.0.2/js/bootstrap.min.js')?>"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     <!-- CUSTOM JS -->
-    <!-- <script src="<?php //echo versionAsset('assets/js/main.js'); ?>"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js" integrity="sha512-X7kCKQJMwapt5FCOl2+ilyuHJp+6ISxFTVrx+nkrhgplZozodT9taV2GuGHxBgKKpOJZ4je77OuPooJg9FJLvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="<?php echo versionAsset('assets/js/main.js'); ?>"></script>
     
     <?= $template['metadata']?>
 
