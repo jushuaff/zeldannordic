@@ -113,8 +113,8 @@ class Ajax_dtr extends CI_Controller {
             $start = date( "Ymd",strtotime($this->session->userdata('start-date')));
             $end   = date( "Ymd",strtotime($this->session->userdata('end-date')));
 
-            /*$start = date( "Ymd",strtotime("01/01/2023"));
-            $end   = date( "Ymd",strtotime("03/01/2023"));*/
+            $start = date( "Ymd",strtotime("01/01/2023"));
+            $end   = date( "Ymd",strtotime("03/01/2023"));
 
             $pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
             $pdf->SetCreator(PDF_CREATOR);  

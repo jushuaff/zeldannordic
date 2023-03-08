@@ -18,7 +18,6 @@ $(function () {
 
       app.dataTables = function(){
         table = $("\
-          #employee-list, \
           #salary-grade-list, \
           #aotr-list, \
           #adtr-list, \
@@ -35,8 +34,7 @@ $(function () {
             order: []
         });
 
-        $("#employee-list-search, \
-          #salary-grade-list-search, \
+        $("#salary-grade-list-search, \
           #aotr-list-search, \
           #adtr-list-search,\
           #odtr-list-search,\
@@ -50,6 +48,18 @@ $(function () {
       }
 
       app.employee_cru_modal = function(){
+        emp_table = $("#employee-list").DataTable({
+            bLengthChange: false, 
+            searching: true,
+            info: false,
+            iDisplayLength: 15,
+            order: []
+        });
+
+        $("#employee-list-search").keyup(function(){
+          emp_table.search($(this).val()).draw();
+        });
+
         var modal = $("#employee-cru-modal");
         $(document).on("click", "#add-employee", function(){
           modal.find(".modal-title").empty().append("<i class='fas fa-plus'></i> Employee");
@@ -108,7 +118,33 @@ $(function () {
                   form.find("input").val("");
                   form.find(".error").removeClass("error");
                   form.find(".error-message, .alert").remove();
-                  $("#employee-cru-modal").modal("hide");
+                  var img_src = "";
+                  if(response.profile_pic !== ""){
+                    img_src = base_url+"assets/user_profile/"+response.profile_pic;
+                  }else{
+                    img_src = base_url+"assets_module/user_profile/"+(response.gender == "Male") ? "male-default.jpg":"female-default.jpg";
+                  }
+                  $("#employee-list tbody").prepend('<tr tr-id="'+response.user_id+'">\
+                      <td class="d-flex align-items-center">\
+                        <div class="emp-profile">\
+                              <img class="profile_pic" src="'+img_src+'">\
+                          </div>\
+                          <div>\
+                          <div class="name">'+response.name+'</div>\
+                          <span class="username w-100">@'+response.username+'</span>\
+                          </div>\
+                      </td>\
+                      <td class="email w550-hide">'+response.email+'</td>\
+                      <td class="mobile_number tablet-hide">'+response.mobile_number+'</td>\
+                      <td class="text-center w405-hide">'+response.user_type+'</td>\
+                      <td class="d-flex justify-content-center">\
+                        <button class="btn edit edit-profile" user-id="'+response.user_id+'" data-toggle="modal" data-target="#employee-cru-modal" title="Edit employee info" user-type="'+response.user_id+'"><i class="fas fa-edit"></i> Edit</button>\
+                        <button class="btn password update-password" user-id="'+response.user_id+'" data-toggle="modal" data-target="#update-password-modal" title="Reset password"><i class="fas fa-key"></i> Password</button>\
+                        <button class="btn archive archive-user" user-id="'+response.user_id+'" data-toggle="modal" data-target="#archive-user-modal" title="Archive employee" archive-value="1"><i class="fas fa-archive"></i> Archive</button>\
+                      </td>\
+                    </tr>'
+                  );
+                  modal.modal("hide");
                 }, 1500);
               }
             },

@@ -112,8 +112,20 @@ class Ajax_users extends CI_Controller {
 
                 if($this->db->trans_status()){
                     $this->db->trans_commit();
-                    $response['status'] = 'success';
-                    $response['message'] = 'User Added Successfully';
+                    $new = $this->users_model->get_one_by_where(['username' => $_POST['username']]);
+                    $type = $this->users_type_model->get_row($_POST['role']);
+                    $response = [
+                        'status'        => 'success',
+                        'message'       => 'User Added Successfully',
+                        'user_id'       => $new['id'],
+                        'name'          => $_POST['name'],
+                        'email'         => $_POST['email'],
+                        'profile_pic'   => $_POST['filename'],
+                        'username'      => $_POST['username'],
+                        'mobile_number' => $_POST['mobile-number'],
+                        'gender'        => $_POST['gender'],
+                        'user_type'     => $type['user_type']
+                    ];
                 }else{
                     $this->db->trans_rollback();
                     $response['status'] = 'error';
