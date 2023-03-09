@@ -15,11 +15,7 @@ Author: Jushua FF
 }
 
 @media (max-width: 500px) {
-	.table-search-row { padding: 10px !important; }
-	.search-bar {
-		margin-top: 10px;
-		width:100% !important;
-	}
+	
 }
 
 

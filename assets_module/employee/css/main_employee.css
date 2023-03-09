@@ -25,11 +25,6 @@ Sidebar
 		font-size: 12px;
 	}
 
-	.collapsible button.disabled, 
-	.collapsible button.disabled:hover {
-		color: lightgray; !important;
-	}
-
 	#my-dtr-list tr.active { 
 		/*background-color: #DAFFD5;*/
 		background-color: orange;

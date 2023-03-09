@@ -14,6 +14,32 @@ $(function () {
       }
 
       app.bindings = function() {
+        $(document).on("click","#temp-button.disabled",function(){
+          var span = $(this).find(".ongoing-temp-message");
+          span.slideDown();
+          setTimeout(function(){
+            span.slideUp();
+          }, 3000);
+        });
+
+        $(document).on("submit","#delete-temp-form",function(e){
+          e.preventDefault();
+          var button = $("#temp-button");
+          $.ajax({
+            url: base_url + "admin/Ajax_users/delete_temp_files",
+            dataType: "JSON",
+            success: function(response){
+              $("#delete-temp-modal").find(".modal-body").prepend('<div class="alert alert-success text-center" role="alert">'+response.message+'</div>');
+              setTimeout(function(){
+                $("#delete-temp-modal").find(".alert").remove();
+                $("#delete-temp-modal").modal("hide");
+                button.removeAttr("data-toggle data-target").attr("title","There are no temporary files");
+                button.addClass("disabled");
+                button.append('<span class="ongoing-temp-message">There are no temporary files</span>');
+              },1500);
+            }
+          });
+        });
       }
 
       app.dataTables = function(){

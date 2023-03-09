@@ -119,6 +119,12 @@ Author: Jushua FF
 	color: var(--color-skyblue); 
 }
 
+.collapsible button.disabled, 
+.collapsible button.disabled:hover {
+	color: lightgray; !important;
+	cursor: default;
+}
+
 #sidebar i.left,
 .collapsible i { width: 30px; }
 
@@ -320,4 +326,10 @@ Table
 	.w500-hide { display:none; }
 
 	.logo-con .logo { width: 70%; }
+
+	.table-search-row { padding: 10px !important; }
+	.search-bar {
+		margin-top: 10px;
+		width:100% !important;
+	}
 }

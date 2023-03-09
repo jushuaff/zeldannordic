@@ -78,6 +78,13 @@ Employee List
 		line-height: 0;
 	}
 
+	#temp-button { flex-wrap: wrap; }
+	#temp-button span {
+		display: none;
+	    color: orange;
+	    font-size: 12px;
+	}
+
 /*-------------------------------------------------------------------
 ODTR
 -------------------------------------------------------------------*/

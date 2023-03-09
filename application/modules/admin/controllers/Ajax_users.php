@@ -440,4 +440,24 @@ class Ajax_users extends CI_Controller {
         $renamed= rename($original, $new_file_name);
         return $split[1];
     }
+
+    public function delete_temp_files(){
+        $fileList = glob('assets_module/user_profile/*');
+        foreach($fileList as $filename){
+            if(is_file($filename)){
+                $profile = $this->users_model->get_one_by_where(['profile_pic' => basename($filename)]);
+                if(!$profile){
+                    $url= $_SERVER['REQUEST_URI']; 
+                    $explode = explode("/",$url);
+                    $base = $explode[1];
+                    $path = $_SERVER['DOCUMENT_ROOT']."/".$base."/assets_module/user_profile/".basename($filename);
+                    unlink($path);
+                }
+            }   
+        }
+
+        $response['status'] = 'success';
+        $response['message'] = 'Temp Files Removed Successfully';
+        echo json_encode($response); 
+    }
 }

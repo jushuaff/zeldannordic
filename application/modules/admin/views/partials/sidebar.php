@@ -85,10 +85,27 @@
 		<i class="fas fa-angle-down right"></i>
 	</button>
 	<div class="collapsible" id="dev-setting">
-		<button><i class="fas fa-trash"></i>Delete Temp</button>
+		<?php
+			$temps = 0;
+			$fileList = glob('assets_module/user_profile/*');
+		    foreach($fileList as $filename){
+		        if(is_file($filename)){
+		            $profile = $this->users_model->get_one_by_where(['profile_pic' => basename($filename)]);
+		            if(!$profile){
+		            	$temps++;
+		                break;
+		            }
+		        }   
+		    }
+		?>
+		<button id="temp-button" <?= ($temps == 0) ? 'class="disabled" title="There are no temporary files"':'data-toggle="modal" data-target="#delete-temp-modal"' ?>><i class="fas fa-trash"></i>Delete Temp <?php if($temps == 0){echo '<span class="ongoing-temp-message">There are no temporary files</span>';} ?></button>
+		<?php
+			
+		?>
 		<button><i class="fa fa-refresh"></i>Holidays</button>
 	</div>
 </div>
 
 <?= $this->load->view('modal/salary-grade-cru-modal'); ?>
 <?= $this->load->view('modal/holiday-cru-modal'); ?>
+<?= $this->load->view('modal/delete-temp-modal'); ?>
