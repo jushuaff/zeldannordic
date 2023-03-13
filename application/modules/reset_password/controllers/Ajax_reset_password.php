@@ -6,7 +6,7 @@ class Ajax_reset_password extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model(['users_model', 'users_type_model']);
-        //if(!$this->input->is_ajax_request()){ show_404(); }
+        if(!$this->input->is_ajax_request()){ show_404(); }
     }
     
     public function index(){

@@ -23,12 +23,10 @@ class Ajax_login extends CI_Controller {
             ];
         }else{
             $user_info = $this->users_model->get_one_by_where(['username'=>$_POST['username']]);
-            $user_type = $this->users_type_model->get_one_by_where(['id'=>$user_info["user_type"]]);
-            $pass = $user_info["password"];
-            //$type = $user_type["user_type"];
-            $type = ($user_type["user_type"] == "admin") ? "admin" : "employee";
             
             if($user_info){
+                $pass = $user_info["password"];
+                $type = ($user_info["user_type"] == "1") ? "admin" : "employee";
                 if($user_info['archive'] == '0' && password_verify($_POST['password'], $user_info['password'])){
                     $response = [
                         'status' => 'success',

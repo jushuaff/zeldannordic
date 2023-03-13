@@ -186,7 +186,7 @@ $(function () {
                   var split = response.split("/").pop();
                   var src = base_url + "assets_module/user_profile/"+split;
                   if(response !== 0){
-                    $(".preview-con").find("img").attr("src",src);
+                    $(".preview-con img").attr("src",src);
                     $("[name='filename']").val(split);
                   }else{
                     alert('file not uploaded');

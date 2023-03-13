@@ -100,7 +100,8 @@
 		?>
 		<button id="temp-button" <?= ($temps == 0) ? 'class="disabled" title="There are no temporary files"':'data-toggle="modal" data-target="#delete-temp-modal"' ?>><i class="fas fa-trash"></i>Delete Temp <?php if($temps == 0){echo '<span class="ongoing-temp-message">There are no temporary files</span>';} ?></button>
 		<?php
-			
+			//get all the dynamic holidays
+			//
 		?>
 		<button><i class="fa fa-refresh"></i>Holidays</button>
 	</div>
